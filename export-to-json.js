@@ -30,6 +30,7 @@ tactics.forEach(function(tactic) {
 });
 
 let marketToTacticsMap = {};
+let markets = [];
 let startups = [];
 
 var csv = require("fast-csv");
@@ -44,6 +45,7 @@ csv
     console.log(data);
 
     let market = data['MARKET'];
+    markets.push(market);
     marketToTacticsMap[market] = {};
 
     tactics.forEach(function(tactic) {
@@ -72,6 +74,7 @@ csv
     console.log("\nJSON:\n");
     console.log(tacticToMarketsMap);
 
+    fs.writeFileSync('./json/markets.json', JSON.stringify(markets, null, 2));
     fs.writeFileSync('./json/startups.json', JSON.stringify(startups, null, 2));
     fs.writeFileSync('./json/tactic-to-markets.json', JSON.stringify(tacticToMarketsMap, null, 2));
     fs.writeFileSync('./json/market-to-tactics.json', JSON.stringify(marketToTacticsMap, null, 2));
